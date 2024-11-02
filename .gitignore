@@ -1,0 +1,5 @@
+.dvc/tmp/
+models/
+*pkl
+.dvc/cache/
+__pycache__

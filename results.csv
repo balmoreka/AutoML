@@ -1,0 +1,9 @@
+Experiment,rev,typ,Created,accuracy,f1,train.test_size,train.metric_cls,train.n_trials
+,workspace,baseline,,1.0,1.0,0.3,f1,5
+,main,baseline,2024-11-02T18:39:56,!,!,0.4,accuracy,12
+uncut-zoea,82ec71a,branch_commit,2024-11-02T20:16:40,1.0,1.0,0.3,f1,5
+aroid-pein,bd28b6f,branch_commit,2024-11-02T20:15:21,1.0,1.0,0.2,f1,5
+tubal-cyma,9f65ec3,branch_commit,2024-11-02T20:13:42,1.0,1.0,0.2,accuracy,5
+prosy-tamp,26298ea,branch_commit,2024-11-02T18:47:33,0.9912126537785588,0.99302649930265,0.4,accuracy,5
+barky-pump,d647043,branch_commit,2024-11-02T18:43:46,0.9912126537785588,0.99302649930265,0.4,accuracy,20
+alike-boar,8e16952,branch_base,2024-11-02T18:42:00,0.9912126537785588,0.99302649930265,0.4,accuracy,15

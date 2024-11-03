@@ -1,0 +1,25 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py datasets/diabetes_reg.csv data/data_prep.csv models/prep.pkl
+    deps:
+    - datasets/diabetes_reg.csv
+    outs:
+    - data/data_prep.csv
+    - models/prep.pkl
+  train:
+    cmd: python src/train.py data/data_prep.csv models/best_model.pkl params.yaml
+    deps:
+    - data/data_prep.csv
+    - params.yaml
+    outs:
+    - models/best_model.pkl
+  evaluate:
+    cmd: python src/evaluate.py data/data_prep.csv models/best_model.pkl metrics.json
+      params.yaml
+    deps:
+    - data/data_prep.csv
+    - models/best_model.pkl
+    - params.yaml
+    metrics:
+    - metrics.json:
+        cache: false

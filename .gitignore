@@ -3,3 +3,6 @@ models/
 *pkl
 .dvc/cache/
 __pycache__
+/data
+.ipynb_checkpoints
+/datasets

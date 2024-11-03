@@ -1,8 +1,8 @@
 stages:
   preprocess:
-    cmd: python src/preprocess.py datasets/diabetes_reg.csv data/data_prep.csv models/prep.pkl
+    cmd: python src/preprocess.py params.yaml data/data_prep.csv models/prep.pkl
     deps:
-    - datasets/diabetes_reg.csv
+    - params.yaml
     outs:
     - data/data_prep.csv
     - models/prep.pkl

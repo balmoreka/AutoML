@@ -37,7 +37,7 @@ def evaluate(input_file, model_file, metrics_file, params_file):
         rmse = root_mean_squared_error(y, predictions)
         r2 = r2_score(y, predictions)
         with open(metrics_file, 'w') as f:
-            json.dump({'accuracy': acc, 'f1': f1}, f, indent=4)
+            json.dump({'rmse': rmse, 'r2': r2}, f, indent=4)
         print(f"Métricas guardadas en {metrics_file}")
 
 if __name__ == "__main__":

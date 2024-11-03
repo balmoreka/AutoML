@@ -36,7 +36,7 @@ def train_cls(X_train, y_train, X_test, y_test, model_file, params, metric_score
         cv_score = np.mean(cross_val_score(rf, X_train, y_train, cv=params['train']['cv_folds']))
         return cv_score
     studyRF = optuna.create_study(direction='maximize')
-    studyRF.optimize(objectiveRF, n_trials=12)
+    studyRF.optimize(objectiveRF, n_trials=params['train']['n_trials'])
     
     rf_model = RandomForestClassifier(n_estimators=studyRF.best_params['n_estimators'],
                                criterion='gini',
@@ -80,7 +80,7 @@ def train_cls(X_train, y_train, X_test, y_test, model_file, params, metric_score
     
         return cv_score
     studyXGB = optuna.create_study(direction='minimize')
-    studyXGB.optimize(objectiveXGB, n_trials=12)
+    studyXGB.optimize(objectiveXGB, n_trials=params['train']['n_trials'])
     
     xgb_model = xgb.XGBClassifier(
                         objective=obj_func,
@@ -114,7 +114,7 @@ def train_cls(X_train, y_train, X_test, y_test, model_file, params, metric_score
     best_model = models_list[results.Metric.argmax()]    
     joblib.dump(best_model, model_file)
 
-def train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score):
+def train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score, scoring):
     # librerias
     from sklearn.linear_model import Ridge
     from sklearn.linear_model import Lasso
@@ -167,7 +167,7 @@ def train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score
         cv_score = np.mean(cross_val_score(rf, X_train, y_train, cv=params['train']['cv_folds'], scoring=scoring))
         return cv_score
     studyRF = optuna.create_study(direction='maximize')
-    studyRF.optimize(objectiveRF, n_trials=12)
+    studyRF.optimize(objectiveRF, n_trials=params['train']['n_trials'])
     
     rf_model = RandomForestRegressor(n_estimators=studyRF.best_params['n_estimators'],
                                criterion='squared_error',
@@ -189,7 +189,7 @@ def train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score
         cv_score = np.mean(cross_val_score(svr, X_train, y_train, cv=params['train']['cv_folds'], scoring=scoring))
         return cv_score
     studySVR = optuna.create_study(direction='maximize')
-    studySVR.optimize(objectiveSVR, n_trials=12)
+    studySVR.optimize(objectiveSVR, n_trials=params['train']['n_trials'])
     
     svr_model = SVR(kernel=studySVR.best_params['kernel'],
                     C=studySVR.best_params['C'])
@@ -248,11 +248,12 @@ def train(input_file, model_file, params_file):
             scoring = 'neg_mean_absolute_percentage_error'
         else:
             metric_score = root_mean_squared_error
+            scoring = 'neg_root_mean_squared_error'
     
     if tipo_problema == 'classification':
         train_cls(X_train, y_train, X_test, y_test, model_file, params, metric_score)
     else:
-        train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score)
+        train_reg(X_train, y_train, X_test, y_test, model_file, params, metric_score, scoring)
 
 ############################################
 

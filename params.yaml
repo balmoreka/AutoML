@@ -1,7 +1,10 @@
+dataset:
+  name: cancer_cls.csv
 train:
-  test_size: 0.2
+  test_size: 0.4
   random_state: 42
-  cv_folds: 5 
+  cv_folds: 5
   alpha: 0.1
-  metric_cls: 'accuracy'
-  metric_reg: 'rmse'
+  metric_cls: accuracy
+  metric_reg: rmse
+  n_trials: 12

@@ -1,4 +1,5 @@
 import sys
+import yaml
 import pandas as pd
 import numpy as np
 import joblib
@@ -7,7 +8,11 @@ from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
-def preprocess(input_file, output_file, output_prep):
+def preprocess(params_file, output_file, output_prep):
+    with open(params_file) as f:
+        params = yaml.safe_load(f)
+    input_file = 'datasets/'+params['dataset']['name']
+    
     df = pd.read_csv(input_file)
     
     # separar caracteristicas
@@ -58,8 +63,8 @@ def preprocess(input_file, output_file, output_prep):
 
 if __name__ == "__main__":
     # Argumentos: archivo de entrada, archivo de salida, características y objetivo
-    input_file = sys.argv[1]
+    params_file = sys.argv[1]
     output_file = sys.argv[2]
     output_prep = sys.argv[3]
     
-    preprocess(input_file, output_file, output_prep)
+    preprocess(params_file, output_file, output_prep)
